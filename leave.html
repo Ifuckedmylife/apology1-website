@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Understand — Please Take Your Time</title>
+    <meta name="description" content="A gentle note for when you need space.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500;1,6..96,600;1,6..96,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== Leave Page — Split Layout ===== */
+        body {
+            height: auto;
+            overflow-y: auto;
+        }
+
+        .leave-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .leave-split {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            max-width: 960px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(200, 50, 80, 0.12);
+            border-radius: 32px;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 16px 48px rgba(200, 50, 80, 0.08);
+        }
+
+        /* Left side — anime character */
+        .leave-character {
+            flex: 0 0 340px;
+            background: linear-gradient(
+                160deg,
+                #ffe0e8 0%,
+                #ffd1de 30%,
+                #ffc2d4 60%,
+                #ffb3ca 100%
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 20px;
+            min-height: 520px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .leave-character::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            pointer-events: none;
+        }
+
+        .leave-character::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: -40px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+        }
+
+        .character-img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            object-fit: contain;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 8px 24px rgba(150, 30, 60, 0.2));
+            animation: characterFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes characterFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Right side — message */
+        .leave-message {
+            flex: 1;
+            padding: 48px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .leave-title {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #4a2030;
+            margin-bottom: 8px;
+        }
+
+        .leave-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            color: #e8395b;
+        }
+
+        .leave-divider span {
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(232, 57, 91, 0.4), transparent);
+        }
+
+        .leave-text {
+            font-size: 1rem;
+            color: #8a5568;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .leave-quote {
+            font-family: 'Bodoni Moda', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #e8395b;
+            line-height: 1.8;
+            padding: 16px 20px;
+            margin: 0 0 20px;
+            background: rgba(232, 57, 91, 0.04);
+            border-left: 3px solid #e8395b;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .leave-note {
+            font-size: 0.95rem;
+            color: #6b3a50;
+            line-height: 1.8;
+            margin-bottom: 28px;
+        }
+
+        .leave-buttons {
+            margin-bottom: 20px;
+        }
+
+        .btn-comeback {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 60px;
+            font-family: 'Bodoni Moda', serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            background: linear-gradient(135deg, #e8395b, #ff6b8a);
+            color: white;
+            box-shadow: 0 8px 28px rgba(232, 57, 91, 0.3);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .btn-comeback:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(232, 57, 91, 0.45);
+        }
+
+        .btn-comeback .btn-icon {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-comeback:hover .btn-icon {
+            transform: scale(1.15);
+        }
+
+        .leave-footer-text {
+            font-family: 'Bodoni Moda', serif;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: #e8395b;
+            opacity: 0.5;
+        }
+
+        /* Animations */
+        .leave-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: leaveReveal 0.7s ease forwards;
+        }
+
+        @keyframes leaveReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .leave-split {
+                flex-direction: column;
+                max-width: 500px;
+            }
+
+            .leave-character {
+                flex: none;
+                width: 100%;
+                min-height: 280px;
+                padding: 24px 16px;
+            }
+
+            .character-img {
+                max-width: 220px;
+            }
+
+            .leave-message {
+                padding: 32px 24px;
+            }
+
+            .leave-title {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .leave-page {
+                padding: 20px 12px;
+            }
+
+            .leave-character {
+                min-height: 220px;
+            }
+
+            .character-img {
+                max-width: 180px;
+            }
+
+            .leave-message {
+                padding: 24px 18px;
+            }
+
+            .btn-comeback {
+                font-size: 0.85rem;
+                padding: 12px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating particles background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Leave Page — Split Layout -->
+    <section class="leave-page">
+        <div class="leave-split">
+            <!-- Left: Anime Character -->
+            <div class="leave-character">
+                <img class="character-img leave-reveal" style="animation-delay: 0.2s" 
+                     src="images/anime_sorry.png" 
+                     alt="Anime girl apologizing">
+            </div>
+
+            <!-- Right: Message -->
+            <div class="leave-message">
+                <h1 class="leave-title leave-reveal" style="animation-delay: 0.4s">I Understand...</h1>
+                
+                <div class="leave-divider leave-reveal" style="animation-delay: 0.5s">
+                    <span></span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" opacity="0.5">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                    <span></span>
+                </div>
+
+                <p class="leave-text leave-reveal" style="animation-delay: 0.6s">
+                    I'm sorry you're not ready to read this yet, and that's completely okay. 
+                    I respect your feelings and your space. I just want you to know one thing:
+                </p>
+
+                <blockquote class="leave-quote leave-reveal" style="animation-delay: 0.8s">
+                    "No matter how much time passes, you will always matter to me. 
+                    Our friendship is something I'll never stop fighting for."
+                </blockquote>
+
+                <p class="leave-note leave-reveal" style="animation-delay: 1s">
+                    If you ever change your mind — even if it's days, weeks, or months from now — 
+                    this page will always be here waiting for you. Just like I will. 💕
+                </p>
+
+                <div class="leave-buttons leave-reveal" style="animation-delay: 1.2s">
+                    <a href="index.html#page-1" class="btn-comeback">
+                        <span class="btn-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        </span>
+                        <span class="btn-text">I Changed My Mind — Take Me Back</span>
+                    </a>
+                </div>
+
+                <p class="leave-footer-text leave-reveal" style="animation-delay: 1.4s">
+                    — Your friend who will always care about you 🌸
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

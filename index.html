@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I'm Sorry — A Heartfelt Apology</title>
+    <meta name="description" content="A sincere and heartfelt apology to someone special.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500;1,6..96,600;1,6..96,700&family=Kalam:wght@400;700&family=Dancing+Script:wght@500;700&family=Great+Vibes&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=17">
+
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+
+<body class="locked">
+
+    <!-- Fullscreen Video Background -->
+    <video id="video-bg" src="videos/sakura.mp4" autoplay loop muted playsinline></video>
+
+    <!-- Overlay: Warning Page (Starts Audio & Allows Scroll) -->
+    <div id="warning-overlay" class="warning-overlay">
+        <div class="hero-content">
+            <p class="warning-text">
+                Please use headphones and a laptop<br>It is not optimized for mobile devices.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn warning-btn" id="start-btn">
+                    <span class="btn-text">I Understand, Continue</span>
+                    <span class="btn-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mute Button -->
+    <button class="mute-btn" id="muteBtn" style="display: none;" onclick="toggleMute()">
+        <svg class="icon-unmuted" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+        </svg>
+        <svg class="icon-muted" style="display: none;" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="1" x2="1" y2="23"></line>
+        </svg>
+    </button>
+
+    <!-- Main Content Container -->
+    <main id="main-content">
+
+        <!-- SECTION: Hero -->
+        <section class="section page active flex-center" id="hero">
+            <div class="hero-content gs-reveal">
+                <div class="heart-icon animate-float"></div>
+                <h1 class="hero-title">
+                    <span class="title-line gs-fade-up">A Heartfelt</span>
+                    <span class="title-line title-accent gs-fade-up" style="transition-delay: 0.2s">Apology</span>
+                </h1>
+                <p class="hero-subtitle gs-fade-up" style="transition-delay: 0.4s; margin-top: 40px;">To someone, I
+                    deeply care for...</p>
+            </div>
+        </section>
+
+        <!-- SECTION: I Am Sorry (Art Page) -->
+        <section class="section page flex-center" id="sorry-art"
+            style="flex-direction: column; justify-content: center;">
+            <div class="gs-reveal"
+                style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 40px 80px;">
+                <img src="images/art.jpeg" alt="Art"
+                    style="max-height: 85vh; max-width: 100%; object-fit: contain; mix-blend-mode: multiply; opacity: 0.9;">
+                <div class="gs-fade-up" style="width: 100%; margin-top: 20px;">
+                    <p class="typewriter-side-msg sorry-art-typewriter">Art By ~ Kouhai</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Letter Book -->
+        <section class="section page flex-center" id="letter">
+            <div class="book-scene gs-reveal">
+                <!-- The Book -->
+                <div class="book" id="the-book">
+                    <!-- Global click zone for going back (positioned on the left side when open) -->
+                    <div class="book-back-zone" id="book-back-zone" onclick="window.turnPreviousPage()">
+                        <div class="back-zone-hover">←</div>
+                    </div>
+
+                    <!-- Book Cover -->
+                    <div class="book-cover" id="book-cover">
+                        <div class="cover-front">
+                            <div class="cover-decoration cover-dec-tl"></div>
+                            <div class="cover-decoration cover-dec-tr"></div>
+                            <div class="cover-decoration cover-dec-bl"></div>
+                            <div class="cover-decoration cover-dec-br"></div>
+                            <div class="cover-spine-line"></div>
+                            <h2 class="cover-title">Shin'yū</h2>
+                            <div class="book-clip" id="book-clip" onclick="window.openBook()">
+                                <svg width="36" height="36" viewBox="0 0 24 24" fill="#e3242b">
+                                    <path
+                                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                </svg>
+                            </div>
+                            <div
+                                style="position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); color: #c41e3a; font-size: 1.5rem; font-family: var(--ff-heading); font-weight: bold; pointer-events: none; letter-spacing: 1px;">
+                                click</div>
+                        </div>
+                        <div class="cover-back"></div>
+                    </div>
+
+                    <!-- Page 1: 🌸 Cherry Blossom (Sakura) -->
+                    <div class="book-page" id="page-1" data-page="1">
+                        <div class="page-front page-style-sakura">
+                            <img src="images/flower_sakura.png" alt="" class="flower-illustration">
+                            <div class="sakura-petal sakura-petal-1"></div>
+                            <div class="sakura-petal sakura-petal-2"></div>
+                            <div class="sakura-petal sakura-petal-3"></div>
+                            <div class="sakura-petal sakura-petal-4"></div>
+                            <div class="sakura-petal sakura-petal-5"></div>
+                            <div class="sakura-petal sakura-petal-6"></div>
+                            <div
+                                style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; pointer-events: none; z-index: 10;">
+                                <h2 class="cover-title"
+                                    style="color: white; opacity: 1; text-shadow: 2px 2px 2px #b71054; transform: scale(0.85);">
+                                    From
+                                    Me<br><span>To You</span></h2>
+                            </div>
+                            <div class="page-number">1</div>
+                        </div>
+                        <div class="page-back page-back-flower">
+                            <span class="flower-page-label">cherry blossom</span>
+                            <img src="images/flower_sakura.png" alt="Cherry Blossom">
+                        </div>
+                    </div>
+
+                    <!-- Page 2: 🌹 Rose -->
+                    <div class="book-page" id="page-2" data-page="2">
+                        <div class="page-front page-style-rose">
+                            <img src="images/flower_rose.png" alt="" class="flower-illustration">
+                            <div class="rose-corner rose-tl"></div>
+                            <div class="rose-corner rose-tr"></div>
+                            <div class="rose-corner rose-bl"></div>
+                            <div class="rose-corner rose-br"></div>
+                            <div class="book-page-content">
+                                <h3 class="book-page-title">I Know I Hurt You</h3>
+                                <div class="book-divider">
+                                    <span></span>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                        <path
+                                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                    </svg>
+                                    <span></span>
+                                </div>
+                                <p class="book-text">"I really hate when I feel one sidedly neglected. I don't have
+                                    enough time or effort to be put into someone who doesn't feel the same or doesn't
+                                    want to, from their side."</p>
+                                <p class="book-text">You were open enough to express that. Yet, I neglected your
+                                    feelings. Yet, I didn't think about you. Yet, I... didn't show any effort for you.
+                                </p>
+                                <p class="book-text">I am sorry.</p>
+                            </div>
+                            <div class="page-number">2</div>
+                        </div>
+                        <div class="page-back page-back-flower">
+                            <span class="flower-page-label">rose</span>
+                            <img src="images/flower_rose.png" alt="Rose">
+                        </div>
+                    </div>
+
+                    <!-- Page 3: 🌺 Hibiscus -->
+                    <div class="book-page" id="page-3" data-page="3">
+                        <div class="page-front page-style-hibiscus">
+                            <img src="images/flower_hibiscus.png" alt="" class="flower-illustration">
+                            <div class="hibiscus-wash"></div>
+                            <div class="hibiscus-accent hibiscus-tl"></div>
+                            <div class="hibiscus-accent hibiscus-br"></div>
+                            <div class="book-page-content">
+                                <p class="book-text">You would have never done the same to me. You would have thought
+                                    twice before hurting me, before choosing something that'd cost me my peace. You
+                                    moved
+                                    with care when it came to me and you meant it every single time.</p>
+                                <p class="book-text">It must've hurt...to see that the same care wasn't given back.
+                                    You
+                                    showed up with intention, with respect, with a heart that considered me in every
+                                    situation. You never would've questioned my worth, the way I questioned yours.
+                                </p>
+                                <p class="book-text">I am sorry.</p>
+                            </div>
+                            <div class="page-number">3</div>
+                        </div>
+                        <div class="page-back page-back-flower">
+                            <span class="flower-page-label">hibiscus</span>
+                            <img src="images/flower_hibiscus.png" alt="Hibiscus">
+                        </div>
+                    </div>
+
+                    <!-- Page 4: 🌷 White Tulip -->
+                    <div class="book-page" id="page-4" data-page="4">
+                        <div class="page-front page-style-tulip">
+                            <img src="images/flower_tulip.png" alt="" class="flower-illustration">
+                            <div class="tulip-watermark"></div>
+                            <div class="book-page-content">
+                                <p class="book-text">I always wanted the best for you, I know it doesn't look like that
+                                    now. I wish I could go back and change what happened but I can't. I will live with
+                                    this feeling that I hurt you forever but that doesn't even affect me because it
+                                    hurts me more to know that I hurt you and I know that no amount of apology could
+                                    ever be enough but that doesn't stop me from feeling sorry.
+                                    All I have is...the here and the now.
+                                </p>
+                            </div>
+                            <div class="page-number">4</div>
+                        </div>
+                        <div class="page-back page-back-flower">
+                            <span class="flower-page-label">white tulip</span>
+                            <img src="images/flower_tulip.png" alt="White Tulip">
+                        </div>
+                    </div>
+
+
+                    <!-- Page 5: 💜 Lavender -->
+                    <div class="book-page" id="page-5" data-page="5">
+                        <div class="page-front page-style-lavender">
+                            <img src="images/flower_lavender.png" alt="" class="flower-illustration">
+                            <div class="lavender-sprig lavender-left"></div>
+                            <div class="lavender-sprig lavender-right"></div>
+                            <div class="book-page-content">
+                                <p class="book-text">I felt at peace before I met you. But thinking back, that peace, it
+                                    didn't bring me joy.
+                                    The time spent with you.... who could have thought that a time so brief, could be so
+                                    precious. I was pretty happy back then. It made me realise that... you are
+                                    important. Important for my happiness. Saying that is very selfish I know but I
+                                    can't help but say that if my life has you, it'll be fun.</p>
+                                <p class="book-text">I am sorry.</p>
+                            </div>
+                            <div class="page-number">5</div>
+                        </div>
+                        <div class="page-back page-back-flower">
+                            <span class="flower-page-label">lavender</span>
+                            <img src="images/flower_lavender.png" alt="Lavender">
+                        </div>
+                    </div>
+
+                    <!-- Page 6: 🌻 Sunflower -->
+                    <div class="book-page" id="page-6" data-page="6">
+                        <div class="page-front page-style-sunflower">
+                            <img src="images/flower_sunflower.png" alt="" class="flower-illustration">
+                            <div class="sunflower-watermark"></div>
+                            <div class="book-page-content">
+                                <p class="book-text">Your college life has been full of surprises and when I found you,
+                                    I think you had finally found stability.</p>
+                                <p class="book-text">And what I did, I think it was surprising. A bad kind of surprise.
+                                    The kind which you cannot take anymore. The kind you are too tired to deal with.</p>
+                                <p class="book-text">I am sorry.</p>
+                            </div>
+                            <div class="page-number">6</div>
+                        </div>
+                        <div class="page-back page-back-flower">
+                            <span class="flower-page-label">sunflower</span>
+                            <img src="images/flower_sunflower.png" alt="Sunflower">
+                        </div>
+                    </div>
+
+                    <!-- Page 7: 🌼 Daisy -->
+                    <div class="book-page" id="page-7" data-page="7">
+                        <div class="page-front page-style-daisy">
+                            <img src="images/flower_daisy.png" alt="" class="flower-illustration">
+                            <div class="daisy-accent daisy-tl"></div>
+                            <div class="daisy-accent daisy-tr"></div>
+                            <div class="daisy-accent daisy-br"></div>
+                            <div class="book-page-content">
+                                <p class="book-text">No amount of guilt can change the past. No amount of words can
+                                    express the sorrow I feel. Hell, words themselves had lost meaning. Whatever I
+                                    wrote, it was from the heart but...they. always. felt. empty. I wrote and deleted,
+                                    deleted,wrote and deleted over and over.
+                                    At last I thought that if words in english feel empty, maybe I should learn an
+                                    entirely different language. So I leanred JAVA and built this website-&lt;3 </p>
+                                <p class="book-text">To try to not feel as if what I said held no meaning. But,
+                                    <br>what I feel doesn't matter, what you feel does.
+                                </p>
+                                <p class="book-text">I am sorry.</p>
+                                <div class="page-number">7</div>
+                            </div>
+                        </div>
+                        <div class="page-back page-back-flower">
+                            <span class="flower-page-label">daisy</span>
+                            <img src="images/flower_daisy.png" alt="Daisy">
+                        </div>
+                    </div>
+
+                    <!-- Page 8: 🪷 Lotus -->
+                    <div class="book-page" id="page-8" data-page="8">
+                        <div class="page-front page-style-lotus">
+                            <img src="images/flower_lotus.png" alt="" class="flower-illustration">
+                            <div class="lotus-watermark"></div>
+                            <div class="book-page-content">
+                                <p class="book-text">Your sound, your laughter... it should remain yours. Not as one
+                                    that's out of place but as one that can become alive.</p>
+                                <p class="book-text">I'll be the one to change my sound. To a sound deserving yours.
+                                    Will you let your sound converge with mine once again?</p>
+                                <p class="book-text">I am sorry.</p>
+                            </div>
+                            <div class="page-number">8</div>
+                        </div>
+                        <div class="page-back page-back-flower">
+                            <span class="flower-page-label">lotus</span>
+                            <img src="images/flower_lotus.png" alt="Lotus">
+                        </div>
+                    </div>
+
+                    <!-- Page 9: Bouquet (Signature Page) -->
+                    <div class="book-page" id="page-9" data-page="9">
+                        <div class="page-front page-style-jasmine">
+                            <img src="images/bouquet.png" alt="" class="flower-illustration">
+                            <div class="jasmine-glow"></div>
+                            <div class="jasmine-star jasmine-tl"></div>
+                            <div class="jasmine-star jasmine-tr"></div>
+                            <div class="jasmine-star jasmine-bl"></div>
+                            <div class="jasmine-star jasmine-br"></div>
+                            <div class="book-page-content final-content">
+                                <p class="book-text">While collecting things for the website, I realized something
+                                    which..was quite sad. We never took any pics or videos together. We had so much
+                                    fun, we enjoyed each other's company but...we never took a picture or a video to
+                                    remember those moments...all that's left of them are...memories.</p>
+                                <p class="book-text">But laughter, it echoes through the flow of time. Those
+                                    memories, they'll always be something we experienced together. Even if there are
+                                    no proofs, I want our friendship to be proof.</p>
+                                <p class="book-text">Proof of the things we shared.</p>
+                                <div class="signature-line"></div>
+                                <p class="book-signature">— From the bottom of my heart 💕</p>
+                            </div>
+                            <div class="page-number">9</div>
+                        </div>
+                        <div class="page-back"
+                            style="background-image: url('images/back.jpg'); background-size: cover; background-position: center; background-color: #fff; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 40px; border-radius: 12px 0 0 12px; box-shadow: inset -5px 0 10px rgba(0,0,0,0.05);">
+                            <p class="book-text"
+                                style="font-size: 1.8rem; font-weight: bold; color: #333; text-align: center; margin-bottom: 8px; text-shadow: 0 0 15px #fff, 0 0 15px #fff, 0 0 15px #fff;">
+                                If there is a hiccup in our relationship,</p>
+                            <p class="book-text"
+                                style="font-size: 1.6rem; font-weight: bold; color: #e63946; text-align: center; text-shadow: 0 0 15px #fff, 0 0 15px #fff, 0 0 15px #fff;">
+                                I'll always want to be your toothless.</p>
+                        </div>
+                    </div>
+
+                    <!-- Outer Back Cover (visible when the book is closed and turned around) -->
+                    <div class="book-outer-back" id="book-outer-back" onclick="window.flipBookToFront()"
+                        style="position: absolute; width: 100%; height: 100%; right: 0; top: 0; transform: rotateY(180deg) translateZ(1px); backface-visibility: hidden; cursor: pointer; pointer-events: none; background-image: url('images/back.jpg'); background-size: cover; background-position: center; background-color: #fff; border-radius: 12px 0 0 12px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 40px; z-index: -2;">
+                        <p class="book-text"
+                            style="font-size: 1.8rem; font-weight: bold; color: #333; text-align: center; margin-bottom: 8px; text-shadow: 0 0 15px #fff, 0 0 15px #fff, 0 0 15px #fff;">
+                            If there is a hiccup in our relationship,</p>
+                        <p class="book-text"
+                            style="font-size: 1.6rem; font-weight: bold; color: #e63946; text-align: center; text-shadow: 0 0 15px #fff, 0 0 15px #fff, 0 0 15px #fff;">
+                            I'll always want to be your toothless.</p>
+                        <p class="book-text"
+                            style="font-size: 0.9rem; color: #888; text-align: center; margin-top: 15px; text-shadow: 0 0 10px #fff;">
+                            ( Click to open book )</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Memory Carousel -->
+        <section class="section page flex-center" id="memory-carousel" style="min-height: 80vh; position: relative;">
+            <div class="carousel-container gs-reveal">
+                <!-- Images container -->
+                <div class="carousel-images" id="memory-stairs">
+                    <img src="images/1.png" alt="Memory 1" class="carousel-img" onclick="goToCarousel(0)">
+                    <img src="images/2.png" alt="Memory 2" class="carousel-img" onclick="goToCarousel(1)">
+                    <img src="images/3.png" alt="Memory 3" class="carousel-img" onclick="goToCarousel(2)">
+                    <img src="images/4.png" alt="Memory 4" class="carousel-img" onclick="goToCarousel(3)">
+                </div>
+                <p class="zoom-hint"
+                    style="text-align: center; color: white; opacity: 1; margin-top: 40px; font-size: 1.3rem; font-weight: 500; letter-spacing: 1px; text-shadow: 2px 2px 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5); line-height: 1.5;">
+                    Click the side images to navigate.<br>Click the center image to zoom.</p>
+            </div>
+        </section>
+
+        <!-- SECTION: But... -->
+        <section class="section page flex-center" id="page-but">
+            <div class="gs-fade-up">
+                <p class="typewriter-side-msg"
+                    style="color: white; font-size: 3rem; text-align: center; text-shadow: 2px 2px 10px rgba(0,0,0,0.5);">
+                    But...</p>
+            </div>
+        </section>
+
+        <!-- SECTION: Vertical Media (Now individual pages) -->
+        <section class="section page flex-center" id="page-collage" style="flex-direction: column;">
+            <div class="media-vertical-item gs-fade-up">
+                <img src="images/collage.png" alt="Collage">
+            </div>
+            <p class="gs-fade-up"
+                style="color: white; font-size: 2.2rem; text-align: center; margin-top: 30px; text-shadow: 2px 2px 10px rgba(0,0,0,0.6); animation-delay: 0.2s;">
+                We have so much more</p>
+        </section>
+
+        <section class="section page flex-center" id="page-v1">
+            <div class="media-vertical-item video-item gs-fade-up">
+                <video src="videos/v1.mp4" playsinline loop></video>
+            </div>
+        </section>
+
+        <section class="section page flex-center" id="page-r1">
+            <div class="split-media-container gs-fade-up">
+                <div class="media-vertical-item video-item">
+                    <video src="videos/r1.mp4" playsinline loop></video>
+                </div>
+                <div class="side-message" style="display: flex; flex-direction: column; align-items: center;">
+                    <p class="typewriter-side-msg">Where are you bestie ?</p>
+                </div>
+            </div>
+            <img src="sticker/3.webp" alt="Sticker 1A" class="sticker-img gs-fade-up"
+                style="position: absolute; top: 15%; left: 10%; max-width: 150px; transform: rotate(-15deg); z-index: 5;">
+            <img src="sticker/8.webp" alt="Sticker 1B" class="sticker-img gs-fade-up"
+                style="position: absolute; bottom: 20%; right: 15%; max-width: 150px; transform: rotate(20deg); z-index: 5;">
+        </section>
+
+        <section class="section page flex-center" id="page-r2">
+            <div class="split-media-container gs-fade-up">
+                <div class="side-message" style="display: flex; flex-direction: column; align-items: center;">
+                    <p class="typewriter-side-msg">Me all this while .</p>
+                </div>
+                <div class="media-vertical-item video-item">
+                    <video src="videos/r2.mp4" playsinline loop></video>
+                </div>
+            </div>
+            <img src="sticker/9.webp" alt="Sticker 2A" class="sticker-img gs-fade-up"
+                style="position: absolute; bottom: 15%; left: 12%; max-width: 150px; transform: rotate(-25deg); z-index: 5;">
+            <img src="sticker/5.webp" alt="Sticker 2B" class="sticker-img gs-fade-up"
+                style="position: absolute; top: 12%; right: 15%; max-width: 150px; transform: rotate(15deg); z-index: 5;">
+        </section>
+
+        <section class="section page flex-center" id="page-r4">
+            <div class="split-media-container gs-fade-up">
+                <div class="media-vertical-item video-item">
+                    <video src="videos/r3.mp4" playsinline loop></video>
+                </div>
+                <div class="side-message" style="display: flex; flex-direction: column; align-items: center;">
+                    <p class="typewriter-side-msg">Mom don't abandon your son </p>
+                </div>
+            </div>
+            <img src="sticker/2.webp" alt="Sticker 3A" class="sticker-img gs-fade-up"
+                style="position: absolute; top: 10%; right: 3%; max-width: 150px; transform: rotate(15deg); z-index: 5;">
+            <img src="sticker/4.webp" alt="Sticker 3B" class="sticker-img gs-fade-up"
+                style="position: absolute; bottom: 10%; left: 3%; max-width: 150px; transform: rotate(-20deg); z-index: 5;">
+            <img src="sticker/6.webp" alt="Sticker 3C" class="sticker-img gs-fade-up"
+                style="position: absolute; bottom: 10%; right: 3%; max-width: 120px; transform: rotate(-5deg); z-index: 5;">
+        </section>
+
+        <section class="section page flex-center" id="page-r3">
+            <div class="split-media-container gs-fade-up">
+                <div class="side-message" style="display: flex; flex-direction: column; align-items: center;">
+                    <p class="typewriter-side-msg">Pweaseeeeeeee.... 🥺👉👈</p>
+                </div>
+                <div class="media-vertical-item video-item">
+                    <video src="videos/r4.mp4" playsinline loop></video>
+                </div>
+            </div>
+            <img src="sticker/1.webp" alt="Sticker 4" class="sticker-img gs-fade-up"
+                style="position: absolute; top: 20%; left: 15%; max-width: 150px; transform: rotate(-10deg); z-index: 5;">
+        </section>
+
+        <!-- SECTION: Change Vibe -->
+        <section class="section page flex-center" id="page-change-vibe">
+            <div class="gs-fade-up">
+                <p class="typewriter-side-msg"
+                    style="color: white; font-size: 2rem; text-align: center; text-shadow: 2px 2px 10px rgba(0,0,0,0.5);">
+                    Let's change the vibe.</p>
+            </div>
+        </section>
+
+        <!-- New Quote Page 3 -->
+        <section class="section page flex-center" id="page-quote3">
+            <div class="gs-fade-up">
+                <p class="quote-page-text typewriter-side-msg">If life was a book, I'd highlight the part where we met.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- New Quote Page 2 -->
+        <section class="section page flex-center" id="page-quote2">
+            <div class="gs-fade-up">
+                <p class="quote-page-text typewriter-side-msg">What is a Tsukasa Eishi without his Rindo-senpai</p>
+            </div>
+        </section>
+
+        <!-- New Quote Page 1 -->
+        <section class="section page flex-center" id="page-quote1">
+            <div class="gs-fade-up">
+                <p class="quote-page-text typewriter-side-msg">Somewhere in the starlight... there's someone who's
+                    forever and always... cheering you on.</p>
+            </div>
+        </section>
+
+        <!-- SECTION: Almost Done -->
+        <section class="section page flex-center" id="page-almost-done">
+            <div class="gs-fade-up">
+                <p class="typewriter-side-msg"
+                    style="color: white; font-size: 2rem; text-align: center; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); white-space: pre-line;">
+                    Alright almost done.
+                    Time for the last part and a new song.</p>
+            </div>
+        </section>
+
+        <!-- SECTION: What You Mean To Me -->
+        <section class="section page flex-center" id="meaning">
+            <div class="container">
+                <h2 class="section-title gs-fade-up">What You Mean To Me</h2>
+                <div class="divider gs-fade-up">
+                    <span></span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                    </svg>
+                    <span></span>
+                </div>
+                <div class="meaning-cards">
+                    <div class="meaning-card gs-zoom-in">
+                        <div class="card-glow"></div>
+                        <div class="card-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path
+                                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                        <h3>My Ikigai</h3>
+                        <p>Calling you, was the favorite part of my day. Your voice has the power to turn my worst days
+                            into the best ones.</p>
+                    </div>
+                    <div class="meaning-card gs-zoom-in">
+                        <div class="card-glow"></div>
+                        <div class="card-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </div>
+                        <h3>My Safe Place</h3>
+                        <p>With you, I can be my truest self. You've given me a friendship that feels like home, warm
+                            and unconditional.</p>
+                    </div>
+                    <div class="meaning-card gs-zoom-in">
+                        <div class="card-glow"></div>
+                        <div class="card-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path
+                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                            </svg>
+                        </div>
+                        <h3>My 11:11</h3>
+                        <p>People might call you a 10/10 but you are my 11:11 person. I cherish every moment I spend
+                            with you.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION: The Finale -->
+        <section class="section page flex-center" id="forgive">
+            <div class="container" style="max-width: 1200px;">
+                <div class="forgive-content gs-reveal">
+                    <div class="forgive-heart-bg">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M50 88.7C47.3 86.3 10 54.5 10 33.5C10 20.5 20.1 10 32.5 10C40.1 10 46.8 14.1 50 20.3C53.2 14.1 59.9 10 67.5 10C79.9 10 90 20.5 90 33.5C90 54.5 52.7 86.3 50 88.7Z"
+                                fill="currentColor" />
+                        </svg>
+                    </div>
+
+                    <h2 class="forgive-title gs-fade-up">Final Apology</h2>
+
+                    <div class="forgive-split gs-fade-up">
+                        <div class="forgive-left">
+                            <div class="scrollable-text">
+                                <p class="forgive-text readable-text">
+                                    Honestly, I don't know what to write here. What words could I possibly use to ask
+                                    for your forgiveness? I don't know. I just know how to speak my heart out and that's
+                                    what I'll do.<br><br>
+                                    The distance you ended up putting yourself at; this past month, it scared me. I
+                                    still am scared.<br><br>
+                                    Initially I had thought that I could wait for you. Wait a week, wait a month, wait a
+                                    year. But I realized, I don't have that luxury. I only have a year and a half left
+                                    with you. I was sad.<br><br>
+                                    After all, I can make a thousand new friends but...how could they ever be
+                                    you?<br><br>
+                                    Your actions, your words they always lived where all the good ones did...in my heart
+                                    🤍<br><br>The hardest thing was finding each other in millions of people. Now, let
+                                    us do the
+                                    easier thing and never lose each other.<br><br>
+                                    I want to be a part of the remainder of your college life.<br><br>
+                                    I am in no position to ask you to do something but... will you join me in the
+                                    library to study everyday from 16th July onwards? You don't need to talk, you don't
+                                    need to say. Just study.<br><br>
+                                    Spending some time together even if we don't speak, it'll mean a lot.<br><br>I'll
+                                    wait for your answer.<br><br>
+                                    I am sorry, Sindhu.<br>
+                                    Please forgive me.<br>
+                                    Kritarth Dubey Junior MNNIT ( Kriti )
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="forgive-right">
+                            <p class="forgive-text forgive-text-em">
+                                You are irreplaceable in my life.
+                            </p>
+                            <div class="forgive-buttons">
+                                <button class="btn btn-forgive" onclick="handleForgive()">
+                                    <span class="btn-text">I Forgive You</span>
+                                    <span class="btn-icon">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                        </svg>
+                                    </span>
+                                </button>
+                                <button class="btn btn-thinking" onclick="handleThinking()">
+                                    <span class="btn-text">I Need Time</span>
+                                    <span class="btn-icon">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <polyline points="12 6 12 12 16 14" />
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Blooper -->
+        <section class="page" id="page-blooper">
+            <div class="page-content">
+                <h2 class="gs-fade-up"
+                    style="text-align: center; color: #ffffff; font-size: 3rem; font-weight: 800; margin-top: 2rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.6);">
+                    One last thing...</h2>
+                <div class="media-container gs-zoom-in"
+                    style="margin-top: 2rem; display: flex; justify-content: center;">
+                    <video id="blooper-vid" src="videos/v2.mp4" controls
+                        style="max-width: 70%; max-height: 60vh; border-radius: 10px;"></video>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal: Forgiven -->
+    <div class="modal-overlay" id="modalForgive">
+        <div class="modal">
+            <div class="modal-hearts" id="modalHearts"></div>
+            <div class="modal-icon modal-icon-happy">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                    <line x1="9" y1="9" x2="9.01" y2="9" />
+                    <line x1="15" y1="9" x2="15.01" y2="9" />
+                </svg>
+            </div>
+            <h3>Yay! No takebacksies</h3>
+            <p>Thank You so..so..so... much, there more stuff ahead for you, go and see.</p>
+            <button class="btn btn-modal" onclick="goToBlooper()">
+                <span class="btn-text">Show me!</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal: Need Time -->
+    <div class="modal-overlay" id="modalThinking">
+        <div class="modal">
+            <div class="modal-icon modal-icon-patient">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path
+                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+            </div>
+            <h3></h3>
+            <p>C'mon! There is more stuff ahead, I put a lot of effort in it, go and see the entire thing </p>
+            <button class="btn btn-modal" onclick="closeModal('modalThinking')">
+                <span class="btn-text">Go back!!</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Global Navigation -->
+    <div id="global-nav">
+        <button id="nav-prev" class="nav-arrow" onclick="prevPage()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <path d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <button id="nav-next" class="nav-arrow" onclick="nextPage()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <path d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
+    </div>
+
+    <script src="script.js?v=10"></script>
+</body>
+
+</html>
